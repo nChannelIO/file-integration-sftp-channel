@@ -12,7 +12,6 @@ COPY . /sdk
 
 RUN chown -R node:node /sdk
 
-RUN chmod +x ./hooks/*
 RUN chmod +x ./runTest.sh
 
 RUN npm install
