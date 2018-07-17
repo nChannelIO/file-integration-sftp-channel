@@ -3,7 +3,7 @@
 let requestErrors = require('request-promise/errors');
 let Channel = require('@nchannel/endpoint-sdk').PromiseChannel;
 
-class Shopify extends Channel {
+class SFTP extends Channel {
   constructor(...args) {
     super(...args);
     this.validateChannelProfile();
@@ -29,4 +29,4 @@ class Shopify extends Channel {
   }
 }
 
-module.exports = Shopify;
+module.exports = SFPT;
