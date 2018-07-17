@@ -1,0 +1,588 @@
+{
+  "name": "File Integration via SFTP",
+  "description": "SFTP Server",
+  "channelIcon": "",
+  "definitionFolderName": " ",
+  "retailClasses": [
+    "eCommerce"
+  ],
+  "orderProcessingRoles": [
+    "Sales",
+    "Fulfillment"
+  ],
+  "channelActionRegistries": [
+    {
+      "name": "GET SALESORDER",
+      "description": "GET SALESORDER",
+      "channelVerb": "GET",
+      "channelNoun": "SALESORDER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT SALESORDER",
+      "description": "PUT SALESORDER",
+      "channelVerb": "PUT",
+      "channelNoun": "SALESORDER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET FULFILLMENT",
+      "description": "GET FULFILLMENT",
+      "channelVerb": "GET",
+      "channelNoun": "FULFILLMENT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT FULFILLMENT",
+      "description": "PUT FULFILLMENT",
+      "channelVerb": "PUT",
+      "channelNoun": "FULFILLMENT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET CUSTOMER",
+      "description": "GET CUSTOMER",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT CUSTOMER",
+      "description": "PUT CUSTOMER",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET CUSTOMERADDRESS",
+      "description": "GET CUSTOMERADDRESS",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMERADDRESS",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT CUSTOMERADDRESS",
+      "description": "PUT CUSTOMERADDRESS",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMERADDRESS",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET CUSTOMERCONTACT",
+      "description": "GET CUSTOMERCONTACT",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMERCONTACT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT CUSTOMERCONTACT",
+      "description": "PUT CUSTOMERCONTACT",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMERCONTACT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET PRODUCT",
+      "description": "GET PRODUCT",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT PRODUCT",
+      "description": "PUT PRODUCT",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET PRODUCTPRICING",
+      "description": "GET PRODUCTPRICING",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCTPRICING",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT PRODUCTPRICING",
+      "description": "PUT PRODUCTPRICING",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCTPRICING",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "GET PRODUCTQUANTITY",
+      "description": "GET PRODUCTQUANTITY",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCTQUANTITY",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    },
+    {
+      "name": "PUT PRODUCTQUANTITY",
+      "description": "PUT PRODUCTQUANTITY",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCTQUANTITY",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "documentDef": {},
+      "configDef": {
+        "configModel": {},
+        "configView": [],
+        "configValues": {}
+      }
+    }
+  ],
+  "channelSettingsSchema": {
+    "configDef": {
+      "configModel": {
+        "type": "object",
+        "title": "SFTP Channel Settings",
+        "properties": {
+          "mode": {
+            "title": "Mode",
+            "type": "string",
+            "enum": [
+              "bin",
+              "text"
+            ]
+          },
+          "protocol": {
+            "title": "Protocol",
+            "type": "string"
+          },
+          "channelType": {
+            "title": "Channel Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "mode",
+          "protocol",
+          "channelType"
+        ]
+      },
+      "configView": [
+        {
+          "key": "mode",
+          "title": "Mode"
+        }
+      ],
+      "configValues": {
+        "protocol": "sftp",
+        "channelType": "FILE"
+      }
+    }
+  },
+  "channelAuthSchema": {
+    "authType": "generic",
+    "configDef": {
+      "configModel": {
+        "type": "object",
+        "title": "Client Connection",
+        "properties": {
+          "host": {
+            "title": "Host *",
+            "type": "string"
+          },
+          "port": {
+            "title": "Port *",
+            "type": "number"
+          },
+          "username": {
+            "title": "Username",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "password": {
+            "title": "Password",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "forceIPv4": {
+            "title": "Force IPv4",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "forceIPv6": {
+            "title": "Force IPv6",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "hostHash": {
+            "title": "Host Hash",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hostVerifier": {
+            "title": "Host Verifier",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "agent": {
+            "title": "Agent",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "agentForward": {
+            "title": "Agent Forward",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "privateKey": {
+            "title": "Private Key",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "passphrase": {
+            "title": "Passphrase",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "localHostname": {
+            "title": "Local Hostname",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "localUsername": {
+            "title": "Local Username",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tryKeyboard": {
+            "title": "Try Keyboard",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "keepaliveInterval": {
+            "title": "Keep Alive Interval (ms)",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "keepaliveCountMax": {
+            "title": "Keep Alive Count Max",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "readyTimeout": {
+            "title": "Ready Timeout (ms)",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "strictVendor": {
+            "title": "Strict Vendor",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "algorithms": {
+            "title": "Algorithms",
+            "type": "object",
+            "properties": {
+              "kex": {
+                "title": "Kex"
+              },
+              "cipher": {
+                "title": "Cipher"
+              },
+              "serverHostKey": {
+                "title": "Server Host Name"
+              },
+              "hmac": {
+                "title": "hmac"
+              },
+              "compress": {
+                "title": "Compress"
+              }
+            }
+          },
+          "compress": {
+            "title": "Compress",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "debug": {
+            "title": "Debug",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "host",
+          "port"
+        ]
+      },
+      "configView": [
+        {
+          "key": "host",
+          "title": "Host",
+          "isMainField": true
+        },
+        {
+          "key": "port",
+          "title": "Port"
+        },
+        {
+          "key": "username",
+          "title": "Username"
+        },
+        {
+          "key": "password",
+          "title": "Password"
+        },
+        {
+          "key": "forceIPv4",
+          "title": "Force IPv4"
+        },
+        {
+          "key": "forceIPv6",
+          "title": "Force IPv6"
+        },
+        {
+          "key": "hostHash",
+          "title": "Host Hash"
+        },
+        {
+          "key": "hostVerifier",
+          "title": "Host Verifier"
+        },
+        {
+          "key": "agent",
+          "title": "Agent"
+        },
+        {
+          "key": "agentForward",
+          "title": "Agent Forward"
+        },
+        {
+          "key": "privateKey",
+          "title": "Private Key"
+        },
+        {
+          "key": "passphrase",
+          "title": "Passphrase"
+        },
+        {
+          "key": "localHostname",
+          "title": "Local Hostname"
+        },
+        {
+          "key": "localUsername",
+          "title": "Local Username"
+        },
+        {
+          "key": "tryKeyboard",
+          "title": "Try Keyboard"
+        },
+        {
+          "key": "keepaliveInterval",
+          "title": "Keep Alive Interval (ms)"
+        },
+        {
+          "key": "keepaliveCountMax",
+          "title": "Keep Alive Count Max"
+        },
+        {
+          "key": "readyTimeout",
+          "title": "Ready Timeout (ms)"
+        },
+        {
+          "key": "strictVendor",
+          "title": "Strict Vendor"
+        },
+        {
+          "key": "algorithms",
+          "title": "Algorithms"
+        },
+        {
+          "key": "compress",
+          "title": "Compress"
+        },
+        {
+          "key": "debug",
+          "title": "Debug"
+        }
+      ],
+      "configValues": {}
+    },
+    "apps": [
+      {
+        "applicationRegistryID": "100000000000000000000003",
+        "appName": "automation-manager"
+      }
+    ]
+  }
+}
