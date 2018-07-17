@@ -1,0 +1,1742 @@
+{
+  "name": "SFTP",
+  "description": "SFTP Server",
+  "channelIcon": "",
+  "definitionFolderName": " ",
+  "retailClasses": [
+    "eCommerce"
+  ],
+  "orderProcessingRoles": [
+    "Sales",
+    "Fulfillment"
+  ],
+  "channelActionRegistries": [
+    {
+      "name": "GET SALESORDER",
+      "description": "GET SALESORDER",
+      "channelVerb": "GET",
+      "channelNoun": "SALESORDER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT SALESORDER",
+      "description": "PUT SALESORDER",
+      "channelVerb": "PUT",
+      "channelNoun": "SALESORDER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET FULFILLMENT",
+      "description": "GET FULFILLMENT",
+      "channelVerb": "GET",
+      "channelNoun": "FULFILLMENT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT FULFILLMENT",
+      "description": "PUT FULFILLMENT",
+      "channelVerb": "PUT",
+      "channelNoun": "FULFILLMENT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET CUSTOMER",
+      "description": "GET CUSTOMER",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT CUSTOMER",
+      "description": "PUT CUSTOMER",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMER",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET CUSTOMERADDRESS",
+      "description": "GET CUSTOMERADDRESS",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMERADDRESS",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT CUSTOMERADDRESS",
+      "description": "PUT CUSTOMERADDRESS",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMERADDRESS",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET CUSTOMERCONTACT",
+      "description": "GET CUSTOMERCONTACT",
+      "channelVerb": "GET",
+      "channelNoun": "CUSTOMERCONTACT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT CUSTOMERCONTACT",
+      "description": "PUT CUSTOMERCONTACT",
+      "channelVerb": "PUT",
+      "channelNoun": "CUSTOMERCONTACT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET PRODUCT",
+      "description": "GET PRODUCT",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT PRODUCT",
+      "description": "PUT PRODUCT",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCT",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET PRODUCTPRICING",
+      "description": "GET PRODUCTPRICING",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCTPRICING",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT PRODUCTPRICING",
+      "description": "PUT PRODUCTPRICING",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCTPRICING",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET PRODUCTQUANTITY",
+      "description": "GET PRODUCTQUANTITY",
+      "channelVerb": "GET",
+      "channelNoun": "PRODUCTQUANTITY",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT PRODUCTQUANTITY",
+      "description": "PUT PRODUCTQUANTITY",
+      "channelVerb": "PUT",
+      "channelNoun": "PRODUCTQUANTITY",
+      "ruleDef": {
+        "ruleSchema": {},
+        "defaultRuleValues": {}
+      },
+      "configDef": {
+        "configModel": {
+          "fileType": {
+            "title": "File Type",
+            "type": "string",
+            "enum": [
+              "csv",
+              "xml",
+              "json"
+            ]
+          },
+          "bundleExpression": {
+            "title": "Bundle Expression",
+            "type": "string"
+          },
+          "fileLocations": {
+            "title": "File Locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationName": {
+                  "title": "Location Name",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string"
+                },
+                "fileMask": {
+                  "title": "File Mask",
+                  "type": "string"
+                },
+                "deleteAfterGet": {
+                  "title": "Delete After Get",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "configView": [
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "deleteAfterGet",
+                "title": "Delete After Get"
+              }
+            ]
+          },
+          {
+            "key": "fileType",
+            "title": "File Type"
+          }
+        ],
+        "configValues": {
+          "fileLocations": [
+            {
+              "locationName": "header",
+              "fileMask": "\\*.hdr",
+              "deleteAfterGet": true
+            },
+            {
+              "locationName": "detail",
+              "fileMask": "\\*.dtl",
+              "deleteAfterGet": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "channelSettingsSchema": {
+    "configDef": {
+      "configModel": {
+        "type": "object",
+        "title": "SFTP Channel Settings",
+        "properties": {
+          "url": {
+            "title": "URL",
+            "type": "string"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string",
+            "enum": [
+              "bin",
+              "text"
+            ]
+          },
+          "protocol": {
+            "title": "Protocol",
+            "type": "string",
+            "enum": [
+              "sftp",
+              "ftp",
+              "http"
+            ]
+          },
+          "channelType": {
+            "title": "Channel Type",
+            "type": "string",
+            "enum": [
+              "API",
+              "FILE"
+            ]
+          }
+        },
+        "required": [
+          "url",
+          "mode",
+          "protocol",
+          "channelType"
+        ]
+      },
+      "configView": [
+        {
+          "key": "url",
+          "title": "URL",
+          "isMainField": true
+        },
+        {
+          "key": "mode",
+          "title": "Mode"
+        }
+      ],
+      "configValues": {
+        "protocol": "sftp",
+        "channelType": "FILE"
+      }
+    }
+  },
+  "channelAuthSchema": {
+    "authType": "generic",
+    "configDef": {
+      "configModel": {
+        "type": "object",
+        "title": "Client Connection",
+        "properties": {
+          "host": {
+            "title": "Host",
+            "type": "string"
+          },
+          "port": {
+            "title": "Port",
+            "type": "number"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "forceIPv4": {
+            "title": "Force IPv4",
+            "type": "boolean"
+          },
+          "forceIPv6": {
+            "title": "Force IPv6",
+            "type": "boolean"
+          },
+          "hostHash": {
+            "title": "Host Hash",
+            "type": "string"
+          },
+          "hostVerifier": {
+            "title": "Host Verifier",
+            "type": "string"
+          },
+          "agent": {
+            "title": "Agent",
+            "type": "string"
+          },
+          "agentForward": {
+            "title": "Agent Forward",
+            "type": "boolean"
+          },
+          "privateKey": {
+            "title": "Private Key",
+            "type": "string"
+          },
+          "passphrase": {
+            "title": "Passphrase",
+            "type": "string"
+          },
+          "localHostname": {
+            "title": "Local Hostname",
+            "type": "string"
+          },
+          "localUsername": {
+            "title": "Local Username",
+            "type": "string"
+          },
+          "tryKeyboard": {
+            "title": "Try Keyboard",
+            "type": "boolean"
+          },
+          "keepaliveInterval": {
+            "title": "Keep Alive Interval (ms)",
+            "type": "number"
+          },
+          "keepaliveCountMax": {
+            "title": "Keep Alive Count Max",
+            "type": "number"
+          },
+          "readyTimeout": {
+            "title": "Ready Timeout (ms)",
+            "type": "number"
+          },
+          "strictVendor": {
+            "title": "Strict Vendor",
+            "type": "boolean"
+          },
+          "algorithms": {
+            "type": "object",
+            "properties": {
+              "kex": {
+                "title": "Kex"
+              },
+              "cipher": {
+                "title": "Cipher"
+              },
+              "serverHostKey": {
+                "title": "Server Host Name"
+              },
+              "hmac": {
+                "title": "hmac"
+              },
+              "compress": {
+                "title": "Compress"
+              }
+            }
+          },
+          "compress": {
+            "title": "Compress",
+            "type": "boolean"
+          },
+          "debug": {
+            "title": "Debug",
+            "type": "string"
+          }
+        },
+        "required": [
+          "host",
+          "port",
+          "username",
+          "password"
+        ]
+      },
+      "configView": [
+        {
+          "key": "host",
+          "title": "Host",
+          "isMainField": true
+        },
+        {
+          "key": "port",
+          "title": "Port"
+        },
+        {
+          "key": "username",
+          "title": "Username"
+        },
+        {
+          "key": "password",
+          "title": "Password"
+        }
+      ],
+      "configValues": {}
+    },
+    "apps": [
+      {
+        "applicationRegistryID": "100000000000000000000003",
+        "appName": "automation-manager"
+      }
+    ]
+  }
+}
