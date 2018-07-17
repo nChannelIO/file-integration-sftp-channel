@@ -1,5 +1,5 @@
 {
-  "name": "file-integration-sftp-channel",
+  "name": "@nchannel/file-integration-sftp-channel",
   "version": "1.0.0",
   "description": "File integration via SFTP",
   "scripts": {
