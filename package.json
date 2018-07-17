@@ -5,7 +5,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "SFTP.js",
   "dependencies": {
     "@nchannel/endpoint-sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "nock": "9.2.3",
   }
 }
