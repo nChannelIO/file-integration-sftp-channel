@@ -20,10 +20,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -36,10 +162,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -52,10 +299,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -68,10 +441,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -84,10 +578,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -100,10 +715,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -116,10 +852,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -132,10 +994,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -148,10 +1131,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -164,10 +1273,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -180,10 +1410,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -196,10 +1552,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -212,10 +1689,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -228,10 +1831,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -244,10 +1968,136 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  },
+                  "deleteAfterGet": {
+                    "title": "Delete After Get",
+                    "type": "boolean",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -260,10 +2110,131 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                null,
+                "dsv",
+                "xml",
+                "json"
+              ],
+              "default": null
+            },
+            "actionScheduleExpression": {
+              "title": "Action Schedule Expression (Cron)",
+              "type": "string"
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
+            },
+            "fileLocations": {
+              "title": "File Locations",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "locationName": {
+                    "title": "Location Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileMask": {
+                    "title": "File Mask",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Document xpath",
+                    "type": "string",
+                    "default": null
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean",
+                    "default": null
+                  },
+                  "fieldDelimiter": {
+                    "title": "fieldDelimiter",
+                    "type": "string",
+                    "maxLength": 1,
+                    "default": ","
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileType",
+            "actionScheduleExpression",
+            "fileLocations"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileType",
+            "title": "File Type"
+          },
+          {
+            "key": "actionScheduleExpression",
+            "title": "Action Schedule Expression (Cron)"
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression"
+          },
+          {
+            "key": "fileLocations",
+            "title": "File Locations",
+            "items": [
+              {
+                "key": "fileLocations[].locationName",
+                "title": "Location Name"
+              },
+              {
+                "key": "fileLocations[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/file"
+              },
+              {
+                "key": "fileLocations[].fileMask",
+                "title": "File Mask"
+              },
+              {
+                "key": "fileLocations[].deleteAfterGet",
+                "title": "Delete After Get"
+              },
+              {
+                "key": "fileLocations[].documentXPath",
+                "title": "Document XPath",
+                "condition": "model.fileType == 'xml'"
+              },
+              {
+                "key": "fileLocations[].columnHeaders",
+                "title": "Column Headers",
+                "condition": "model.fileType == 'dsv'"
+              },
+              {
+                "key": "fileLocations[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'dsv'"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     }
@@ -292,7 +2263,6 @@
           }
         },
         "required": [
-          "url",
           "mode",
           "protocol",
           "channelType"
@@ -444,27 +2414,6 @@
               "null"
             ]
           },
-          "algorithms": {
-            "title": "Algorithms",
-            "type": "object",
-            "properties": {
-              "kex": {
-                "title": "Kex"
-              },
-              "cipher": {
-                "title": "Cipher"
-              },
-              "serverHostKey": {
-                "title": "Server Host Name"
-              },
-              "hmac": {
-                "title": "hmac"
-              },
-              "compress": {
-                "title": "Compress"
-              }
-            }
-          },
           "compress": {
             "title": "Compress",
             "type": [
@@ -562,10 +2511,6 @@
         {
           "key": "strictVendor",
           "title": "Strict Vendor"
-        },
-        {
-          "key": "algorithms",
-          "title": "Algorithms"
         },
         {
           "key": "compress",
