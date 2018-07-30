@@ -31,29 +31,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -62,19 +56,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -83,18 +72,20 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
             "fileLocations"
           ]
         },
@@ -104,50 +95,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -173,29 +163,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -204,19 +188,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -224,14 +203,21 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
             "fileLocations"
           ]
         },
@@ -241,50 +227,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -310,29 +294,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -341,19 +319,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -362,18 +335,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -383,50 +359,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "title": "File Mask",
+                "placeholder": "\\\\*.FILE_EXTENTION"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -452,29 +427,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -483,19 +452,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -503,14 +467,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -520,50 +492,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -589,29 +559,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -620,19 +584,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -640,14 +599,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -657,50 +624,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -726,29 +692,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -757,19 +717,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -777,14 +732,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -794,50 +757,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -863,29 +824,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -894,19 +849,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -915,18 +865,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -936,50 +889,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1005,29 +957,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1036,20 +982,19 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
                   },
                   "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
-                    "default": null
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   },
                   "fieldDelimiter": {
                     "title": "fieldDelimiter",
@@ -1059,11 +1004,15 @@
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1073,50 +1022,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1142,29 +1089,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1173,19 +1114,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1194,18 +1130,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1215,50 +1154,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1284,29 +1222,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1315,19 +1247,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1335,14 +1262,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1352,50 +1287,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1421,29 +1354,24 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
+                "Delimited",
+                "XML"
               ],
-              "default": null
+              "default": "Delimited"
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1452,19 +1380,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1473,18 +1396,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1494,50 +1420,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1563,29 +1488,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1594,19 +1513,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1614,14 +1528,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1631,50 +1553,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileName",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1700,29 +1620,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1731,19 +1645,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1752,18 +1661,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1773,50 +1685,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1842,29 +1753,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -1873,19 +1778,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -1893,14 +1793,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -1910,50 +1818,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1979,29 +1885,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -2010,19 +1910,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -2031,18 +1926,21 @@
                     "maxLength": 1,
                     "default": ","
                   },
-                  "deleteAfterGet": {
-                    "title": "Delete After Get",
-                    "type": "boolean",
-                    "default": null
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -2052,50 +1950,49 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
           },
           {
-            "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
+            "key": "fileset",
+            "title": "Fileset",
             "items": [
               {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
               },
               {
-                "key": "fileLocations[].path",
+                "key": "fileset[].path",
                 "title": "Path",
-                "placeholder": "/some/path/to/file"
+                "placeholder": "/some/path/to/folder"
               },
               {
-                "key": "fileLocations[].fileMask",
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
                 "title": "File Mask"
               },
               {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
               },
               {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
+                "key": "fileset[].fieldDelimiter",
                 "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
               }
             ]
+          },
+          {
+            "key": "bundleExpression",
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -2121,29 +2018,23 @@
               "title": "File Type",
               "type": "string",
               "enum": [
-                null,
-                "dsv",
-                "xml",
-                "json"
-              ],
-              "default": null
+                "Delimited",
+                "XML"
+              ]
             },
-            "actionScheduleExpression": {
-              "title": "Action Schedule Expression (Cron)",
+            "pollInterval": {
+              "title": "Poll Interval (Cron Expression)",
               "type": "string"
             },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
-            },
-            "fileLocations": {
-              "title": "File Locations",
+            "fileset": {
+              "title": "Fileset",
               "type": "array",
+              "minItems": 1,
               "items": {
                 "type": "object",
                 "properties": {
-                  "locationName": {
-                    "title": "Location Name",
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
                     "type": "string",
                     "default": null
                   },
@@ -2152,19 +2043,14 @@
                     "type": "string",
                     "default": null
                   },
-                  "fileMask": {
-                    "title": "File Mask",
+                  "fileName": {
+                    "title": "File Name",
                     "type": "string",
                     "default": null
                   },
                   "documentXPath": {
-                    "title": "Document xpath",
+                    "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
-                    "default": null
-                  },
-                  "columnHeaders": {
-                    "title": "Column Headers",
-                    "type": "boolean",
                     "default": null
                   },
                   "fieldDelimiter": {
@@ -2172,14 +2058,22 @@
                     "type": "string",
                     "maxLength": 1,
                     "default": ","
+                  },
+                  "columnHeaders": {
+                    "title": "File has column headers.",
+                    "type": "boolean"
                   }
                 }
               }
+            },
+            "bundleExpression": {
+              "title": "Bundle Expression",
+              "type": "string"
             }
           },
           "required": [
             "fileType",
-            "actionScheduleExpression",
+            "pollInterval",
             "fileLocations"
           ]
         },
@@ -2189,50 +2083,48 @@
             "title": "File Type"
           },
           {
-            "key": "actionScheduleExpression",
-            "title": "Action Schedule Expression (Cron)"
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)"
+          },
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "title": "File Name"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType == 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "title": "Field Delimiter",
+                "condition": "model.fileType == 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "title": "File has column headers.",
+                "condition": "model.fileType == 'Delimited'"
+              }
+            ]
           },
           {
             "key": "bundleExpression",
-            "title": "Bundle Expression"
-          },
-          {
-            "key": "fileLocations",
-            "title": "File Locations",
-            "items": [
-              {
-                "key": "fileLocations[].locationName",
-                "title": "Location Name"
-              },
-              {
-                "key": "fileLocations[].path",
-                "title": "Path",
-                "placeholder": "/some/path/to/file"
-              },
-              {
-                "key": "fileLocations[].fileMask",
-                "title": "File Mask"
-              },
-              {
-                "key": "fileLocations[].deleteAfterGet",
-                "title": "Delete After Get"
-              },
-              {
-                "key": "fileLocations[].documentXPath",
-                "title": "Document XPath",
-                "condition": "model.fileType == 'xml'"
-              },
-              {
-                "key": "fileLocations[].columnHeaders",
-                "title": "Column Headers",
-                "condition": "model.fileType == 'dsv'"
-              },
-              {
-                "key": "fileLocations[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'dsv'"
-              }
-            ]
+            "title": "Bundle Expression",
+            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -2245,13 +2137,17 @@
         "type": "object",
         "title": "SFTP Channel Settings",
         "properties": {
-          "mode": {
-            "title": "Mode",
-            "type": "string",
-            "enum": [
-              "bin",
-              "text"
-            ]
+          "keepaliveInterval": {
+            "title": "Keep Alive Interval (ms)",
+            "type": "number"
+          },
+          "keepaliveCountMax": {
+            "title": "Keep Alive Count Max",
+            "type": "number"
+          },
+          "readyTimeout": {
+            "title": "Ready Timeout (ms)",
+            "type": "number"
           },
           "protocol": {
             "title": "Protocol",
@@ -2260,18 +2156,38 @@
           "channelType": {
             "title": "Channel Type",
             "type": "string"
+          },
+          "compress": {
+            "title": "Compress",
+            "type": "string",
+            "enum": [
+              "false",
+              "true",
+              "force"
+            ]
           }
         },
         "required": [
-          "mode",
           "protocol",
           "channelType"
         ]
       },
       "configView": [
         {
-          "key": "mode",
-          "title": "Mode"
+          "key": "keepaliveInterval",
+          "title": "Keep Alive Interval (ms)"
+        },
+        {
+          "key": "keepaliveCountMax",
+          "title": "Keep Alive Count Max"
+        },
+        {
+          "key": "readyTimeout",
+          "title": "Ready Timeout (ms)"
+        },
+        {
+          "key": "compress",
+          "title": "Compress"
         }
       ],
       "configValues": {
@@ -2295,233 +2211,141 @@
             "title": "Port *",
             "type": "number"
           },
-          "username": {
-            "title": "Username",
-            "type": [
-              "string",
-              "null"
+          "authMethod": {
+            "title": "Authentication Method",
+            "type": "string",
+            "enum": [
+              "None",
+              "User",
+              "Private Key"
             ]
+          },
+          "username": {
+            "title": "Username *",
+            "type": "string"
           },
           "password": {
-            "title": "Password",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "forceIPv4": {
-            "title": "Force IPv4",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "forceIPv6": {
-            "title": "Force IPv6",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "hostHash": {
-            "title": "Host Hash",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "hostVerifier": {
-            "title": "Host Verifier",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "agent": {
-            "title": "Agent",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "agentForward": {
-            "title": "Agent Forward",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "title": "Password *",
+            "type": "string"
           },
           "privateKey": {
-            "title": "Private Key",
-            "type": [
-              "string",
-              "null"
-            ]
+            "title": "Key *",
+            "type": "string"
           },
           "passphrase": {
             "title": "Passphrase",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
-          "localHostname": {
-            "title": "Local Hostname",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "localUsername": {
-            "title": "Local Username",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "tryKeyboard": {
-            "title": "Try Keyboard",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "keepaliveInterval": {
-            "title": "Keep Alive Interval (ms)",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "keepaliveCountMax": {
-            "title": "Keep Alive Count Max",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "readyTimeout": {
-            "title": "Ready Timeout (ms)",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "strictVendor": {
-            "title": "Strict Vendor",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "compress": {
-            "title": "Compress",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "debug": {
-            "title": "Debug",
-            "type": [
-              "string",
-              "null"
-            ]
+          "hostHash": {
+            "title": "Host Hash",
+            "type": "string"
           }
         },
-        "required": [
-          "host",
-          "port"
+        "anyOf": [
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "User"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port",
+              "username",
+              "password"
+            ]
+          },
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "None"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port"
+            ]
+          },
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "Private Key"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port",
+              "privateKey"
+            ]
+          }
         ]
       },
       "configView": [
         {
           "key": "host",
-          "title": "Host",
-          "isMainField": true
+          "title": "Host *"
         },
         {
           "key": "port",
-          "title": "Port"
+          "title": "Port *"
         },
         {
-          "key": "username",
-          "title": "Username"
+          "key": "authMethod",
+          "title": "Authentication Method"
         },
         {
-          "key": "password",
-          "title": "Password"
+          "key": "userPassSection",
+          "type": "fieldset",
+          "title": "Username and Password",
+          "items": [
+            {
+              "key": "username",
+              "title": "Username *"
+            },
+            {
+              "key": "password",
+              "title": "Password *"
+            }
+          ],
+          "condition": "model.authMethod == 'User'"
         },
         {
-          "key": "forceIPv4",
-          "title": "Force IPv4"
+          "key": "privateKeySection",
+          "type": "fieldset",
+          "title": "Private Key",
+          "items": [
+            {
+              "key": "privateKey",
+              "title": "Key *"
+            },
+            {
+              "key": "passphrase",
+              "title": "Passphrase"
+            }
+          ],
+          "condition": "model.authMethod == 'Private Key'"
         },
         {
-          "key": "forceIPv6",
-          "title": "Force IPv6"
-        },
-        {
-          "key": "hostHash",
-          "title": "Host Hash"
-        },
-        {
-          "key": "hostVerifier",
-          "title": "Host Verifier"
-        },
-        {
-          "key": "agent",
-          "title": "Agent"
-        },
-        {
-          "key": "agentForward",
-          "title": "Agent Forward"
-        },
-        {
-          "key": "privateKey",
-          "title": "Private Key"
-        },
-        {
-          "key": "passphrase",
-          "title": "Passphrase"
-        },
-        {
-          "key": "localHostname",
-          "title": "Local Hostname"
-        },
-        {
-          "key": "localUsername",
-          "title": "Local Username"
-        },
-        {
-          "key": "tryKeyboard",
-          "title": "Try Keyboard"
-        },
-        {
-          "key": "keepaliveInterval",
-          "title": "Keep Alive Interval (ms)"
-        },
-        {
-          "key": "keepaliveCountMax",
-          "title": "Keep Alive Count Max"
-        },
-        {
-          "key": "readyTimeout",
-          "title": "Ready Timeout (ms)"
-        },
-        {
-          "key": "strictVendor",
-          "title": "Strict Vendor"
-        },
-        {
-          "key": "compress",
-          "title": "Compress"
-        },
-        {
-          "key": "debug",
-          "title": "Debug"
+          "key": "advancedSettingsSection",
+          "type": "fieldset",
+          "title": "Advanced Settings",
+          "items": [
+            {
+              "key": "hostHash",
+              "title": "Host Hash"
+            }
+          ]
         }
       ],
-      "configValues": {}
+      "configValues": {
+        "authMethod": "None"
+      }
     },
     "apps": [
       {
