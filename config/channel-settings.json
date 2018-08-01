@@ -27,18 +27,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -65,39 +53,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -114,30 +79,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -159,18 +108,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -178,11 +115,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -193,51 +125,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -245,30 +157,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -290,18 +197,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -328,40 +223,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -377,31 +248,15 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "title": "File Mask",
-                "placeholder": "\\\\*.FILE_EXTENTION"
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -423,18 +278,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -442,11 +285,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -457,52 +295,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -510,30 +327,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -555,18 +367,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -593,40 +393,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -643,30 +419,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -688,18 +448,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -707,11 +455,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -722,52 +465,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -775,30 +497,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -820,18 +537,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -858,40 +563,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -908,30 +589,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -953,18 +618,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -972,11 +625,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -987,52 +635,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -1040,30 +667,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1085,18 +707,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1123,40 +733,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1173,30 +759,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1218,18 +788,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1237,11 +795,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -1252,52 +805,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -1305,30 +837,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1350,19 +877,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ],
-              "default": "Delimited"
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1389,40 +903,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1439,30 +929,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1484,18 +958,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1503,11 +965,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -1518,52 +975,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -1571,30 +1007,25 @@
               },
               {
                 "key": "fileset[].fileName",
-                "title": "File Mask"
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1616,18 +1047,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1654,40 +1073,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1704,30 +1099,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1749,18 +1128,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1768,11 +1135,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -1783,52 +1145,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -1836,30 +1177,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -1881,18 +1217,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1919,40 +1243,16 @@
                     "title": "Where in the XML is the business document? (XPath Expression)",
                     "type": "string",
                     "default": null
-                  },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
-                  },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
-          {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1969,30 +1269,14 @@
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Mask"
+                "title": "File Name Mask (Regular Expression)"
               },
               {
                 "key": "fileset[].documentXPath",
                 "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
-              },
-              {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
-              },
-              {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "placeholder": "/path/to/document/in/xml"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -2014,18 +1298,6 @@
         "configModel": {
           "type": "object",
           "properties": {
-            "fileType": {
-              "title": "File Type",
-              "type": "string",
-              "enum": [
-                "Delimited",
-                "XML"
-              ]
-            },
-            "pollInterval": {
-              "title": "Poll Interval (Cron Expression)",
-              "type": "string"
-            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -2033,11 +1305,6 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
-                  },
                   "path": {
                     "title": "Path",
                     "type": "string",
@@ -2048,52 +1315,31 @@
                     "type": "string",
                     "default": null
                   },
-                  "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
                   },
-                  "fieldDelimiter": {
-                    "title": "fieldDelimiter",
-                    "type": "string",
-                    "maxLength": 1,
-                    "default": ","
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
                   },
-                  "columnHeaders": {
-                    "title": "File has column headers.",
-                    "type": "boolean"
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
                   }
                 }
               }
-            },
-            "bundleExpression": {
-              "title": "Bundle Expression",
-              "type": "string"
             }
           },
           "required": [
-            "fileType",
-            "pollInterval",
-            "fileLocations"
+            "fileset"
           ]
         },
         "configView": [
           {
-            "key": "fileType",
-            "title": "File Type"
-          },
-          {
-            "key": "pollInterval",
-            "title": "Poll Interval (Cron Expression)"
-          },
-          {
             "key": "fileset",
             "title": "Fileset",
             "items": [
-              {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
-              },
               {
                 "key": "fileset[].path",
                 "title": "Path",
@@ -2101,30 +1347,25 @@
               },
               {
                 "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
                 "title": "File Name"
               },
               {
-                "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
-                "placeholder": "/path/to/document/in/xml",
-                "condition": "model.fileType == 'XML'"
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].fieldDelimiter",
-                "title": "Field Delimiter",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
               },
               {
-                "key": "fileset[].columnHeaders",
-                "title": "File has column headers.",
-                "condition": "model.fileType == 'Delimited'"
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
               }
             ]
-          },
-          {
-            "key": "bundleExpression",
-            "title": "Bundle Expression",
-            "type": "textarea"
           }
         ],
         "configValues": {}
@@ -2159,12 +1400,7 @@
           },
           "compress": {
             "title": "Compress",
-            "type": "string",
-            "enum": [
-              "false",
-              "true",
-              "force"
-            ]
+            "type": "boolean"
           }
         },
         "required": [
@@ -2310,7 +1546,8 @@
             },
             {
               "key": "password",
-              "title": "Password *"
+              "title": "Password *",
+              "type": "password"
             }
           ],
           "condition": "model.authMethod == 'User'"
