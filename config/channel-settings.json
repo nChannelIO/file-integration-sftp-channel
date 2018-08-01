@@ -20,10 +20,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -36,10 +101,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -52,10 +190,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -68,10 +271,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -84,10 +360,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -100,10 +441,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -116,10 +530,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -132,10 +611,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -148,10 +700,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -164,10 +781,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -180,10 +870,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -196,10 +951,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -212,10 +1040,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -228,10 +1121,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -244,10 +1210,75 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bundleExpressionAlias": {
+                    "title": "Bundle Expression Alias",
+                    "type": "string",
+                    "default": null
+                  },
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileNameMask": {
+                    "title": "File Name Mask (Regular Expression)",
+                    "type": "string",
+                    "default": null
+                  },
+                  "documentXPath": {
+                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].bundleExpressionAlias",
+                "title": "Bundle Expression Alias"
+              },
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileNameMask",
+                "placeholder": "\\\\*.FILE_EXTENTION",
+                "title": "File Name Mask (Regular Expression)"
+              },
+              {
+                "key": "fileset[].documentXPath",
+                "title": "Where in the XML is the business document? (XPath Expression)",
+                "placeholder": "/path/to/document/in/xml"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     },
@@ -260,10 +1291,83 @@
         "ruleSchema": {},
         "defaultRuleValues": {}
       },
-      "documentDef": {},
+      "documentDef": {
+        "referenceLocation": {}
+      },
       "configDef": {
-        "configModel": {},
-        "configView": [],
+        "configModel": {
+          "type": "object",
+          "properties": {
+            "fileset": {
+              "title": "Fileset",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "title": "Path",
+                    "type": "string",
+                    "default": null
+                  },
+                  "fileName": {
+                    "title": "File Name",
+                    "type": "string",
+                    "default": null
+                  },
+                  "unbundleExpression": {
+                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "type": "string"
+                  },
+                  "xmlHeader": {
+                    "title": "XML Header",
+                    "type": "string"
+                  },
+                  "xmlFooter": {
+                    "title": "XML Footer",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "fileset"
+          ]
+        },
+        "configView": [
+          {
+            "key": "fileset",
+            "title": "Fileset",
+            "items": [
+              {
+                "key": "fileset[].path",
+                "title": "Path",
+                "placeholder": "/some/path/to/folder"
+              },
+              {
+                "key": "fileset[].fileName",
+                "placeholder": "FILENAME.{{timestamp}}.xml",
+                "title": "File Name"
+              },
+              {
+                "key": "unbundleExpression",
+                "title": "Unbundle Expression (Jsonata Expression)",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlHeader",
+                "title": "XML Header",
+                "type": "textarea"
+              },
+              {
+                "key": "xmlFooter",
+                "title": "XML Footer",
+                "type": "textarea"
+              }
+            ]
+          }
+        ],
         "configValues": {}
       }
     }
@@ -274,13 +1378,17 @@
         "type": "object",
         "title": "SFTP Channel Settings",
         "properties": {
-          "mode": {
-            "title": "Mode",
-            "type": "string",
-            "enum": [
-              "bin",
-              "text"
-            ]
+          "keepaliveInterval": {
+            "title": "Keep Alive Interval (ms)",
+            "type": "number"
+          },
+          "keepaliveCountMax": {
+            "title": "Keep Alive Count Max",
+            "type": "number"
+          },
+          "readyTimeout": {
+            "title": "Ready Timeout (ms)",
+            "type": "number"
           },
           "protocol": {
             "title": "Protocol",
@@ -289,19 +1397,33 @@
           "channelType": {
             "title": "Channel Type",
             "type": "string"
+          },
+          "compress": {
+            "title": "Compress",
+            "type": "boolean"
           }
         },
         "required": [
-          "url",
-          "mode",
           "protocol",
           "channelType"
         ]
       },
       "configView": [
         {
-          "key": "mode",
-          "title": "Mode"
+          "key": "keepaliveInterval",
+          "title": "Keep Alive Interval (ms)"
+        },
+        {
+          "key": "keepaliveCountMax",
+          "title": "Keep Alive Count Max"
+        },
+        {
+          "key": "readyTimeout",
+          "title": "Ready Timeout (ms)"
+        },
+        {
+          "key": "compress",
+          "title": "Compress"
         }
       ],
       "configValues": {
@@ -325,258 +1447,142 @@
             "title": "Port *",
             "type": "number"
           },
-          "username": {
-            "title": "Username",
-            "type": [
-              "string",
-              "null"
+          "authMethod": {
+            "title": "Authentication Method",
+            "type": "string",
+            "enum": [
+              "None",
+              "User",
+              "Private Key"
             ]
+          },
+          "username": {
+            "title": "Username *",
+            "type": "string"
           },
           "password": {
-            "title": "Password",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "forceIPv4": {
-            "title": "Force IPv4",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "forceIPv6": {
-            "title": "Force IPv6",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "hostHash": {
-            "title": "Host Hash",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "hostVerifier": {
-            "title": "Host Verifier",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "agent": {
-            "title": "Agent",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "agentForward": {
-            "title": "Agent Forward",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "title": "Password *",
+            "type": "string"
           },
           "privateKey": {
-            "title": "Private Key",
-            "type": [
-              "string",
-              "null"
-            ]
+            "title": "Key *",
+            "type": "string"
           },
           "passphrase": {
             "title": "Passphrase",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
-          "localHostname": {
-            "title": "Local Hostname",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "localUsername": {
-            "title": "Local Username",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "tryKeyboard": {
-            "title": "Try Keyboard",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "keepaliveInterval": {
-            "title": "Keep Alive Interval (ms)",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "keepaliveCountMax": {
-            "title": "Keep Alive Count Max",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "readyTimeout": {
-            "title": "Ready Timeout (ms)",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "strictVendor": {
-            "title": "Strict Vendor",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "algorithms": {
-            "title": "Algorithms",
-            "type": "object",
-            "properties": {
-              "kex": {
-                "title": "Kex"
-              },
-              "cipher": {
-                "title": "Cipher"
-              },
-              "serverHostKey": {
-                "title": "Server Host Name"
-              },
-              "hmac": {
-                "title": "hmac"
-              },
-              "compress": {
-                "title": "Compress"
-              }
-            }
-          },
-          "compress": {
-            "title": "Compress",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "debug": {
-            "title": "Debug",
-            "type": [
-              "string",
-              "null"
-            ]
+          "hostHash": {
+            "title": "Host Hash",
+            "type": "string"
           }
         },
-        "required": [
-          "host",
-          "port"
+        "anyOf": [
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "User"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port",
+              "username",
+              "password"
+            ]
+          },
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "None"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port"
+            ]
+          },
+          {
+            "properties": {
+              "authMethod": {
+                "enum": [
+                  "Private Key"
+                ]
+              }
+            },
+            "required": [
+              "host",
+              "port",
+              "privateKey"
+            ]
+          }
         ]
       },
       "configView": [
         {
           "key": "host",
-          "title": "Host",
-          "isMainField": true
+          "title": "Host *"
         },
         {
           "key": "port",
-          "title": "Port"
+          "title": "Port *"
         },
         {
-          "key": "username",
-          "title": "Username"
+          "key": "authMethod",
+          "title": "Authentication Method"
         },
         {
-          "key": "password",
-          "title": "Password"
+          "key": "userPassSection",
+          "type": "fieldset",
+          "title": "Username and Password",
+          "items": [
+            {
+              "key": "username",
+              "title": "Username *"
+            },
+            {
+              "key": "password",
+              "title": "Password *",
+              "type": "password"
+            }
+          ],
+          "condition": "model.authMethod == 'User'"
         },
         {
-          "key": "forceIPv4",
-          "title": "Force IPv4"
+          "key": "privateKeySection",
+          "type": "fieldset",
+          "title": "Private Key",
+          "items": [
+            {
+              "key": "privateKey",
+              "title": "Key *"
+            },
+            {
+              "key": "passphrase",
+              "title": "Passphrase"
+            }
+          ],
+          "condition": "model.authMethod == 'Private Key'"
         },
         {
-          "key": "forceIPv6",
-          "title": "Force IPv6"
-        },
-        {
-          "key": "hostHash",
-          "title": "Host Hash"
-        },
-        {
-          "key": "hostVerifier",
-          "title": "Host Verifier"
-        },
-        {
-          "key": "agent",
-          "title": "Agent"
-        },
-        {
-          "key": "agentForward",
-          "title": "Agent Forward"
-        },
-        {
-          "key": "privateKey",
-          "title": "Private Key"
-        },
-        {
-          "key": "passphrase",
-          "title": "Passphrase"
-        },
-        {
-          "key": "localHostname",
-          "title": "Local Hostname"
-        },
-        {
-          "key": "localUsername",
-          "title": "Local Username"
-        },
-        {
-          "key": "tryKeyboard",
-          "title": "Try Keyboard"
-        },
-        {
-          "key": "keepaliveInterval",
-          "title": "Keep Alive Interval (ms)"
-        },
-        {
-          "key": "keepaliveCountMax",
-          "title": "Keep Alive Count Max"
-        },
-        {
-          "key": "readyTimeout",
-          "title": "Ready Timeout (ms)"
-        },
-        {
-          "key": "strictVendor",
-          "title": "Strict Vendor"
-        },
-        {
-          "key": "algorithms",
-          "title": "Algorithms"
-        },
-        {
-          "key": "compress",
-          "title": "Compress"
-        },
-        {
-          "key": "debug",
-          "title": "Debug"
+          "key": "advancedSettingsSection",
+          "type": "fieldset",
+          "title": "Advanced Settings",
+          "items": [
+            {
+              "key": "hostHash",
+              "title": "Host Hash"
+            }
+          ]
         }
       ],
-      "configValues": {}
+      "configValues": {
+        "authMethod": "None"
+      }
     },
     "apps": [
       {
