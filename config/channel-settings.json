@@ -43,7 +43,7 @@
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -120,11 +120,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -212,15 +212,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -297,11 +297,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -389,15 +389,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -474,11 +474,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -566,15 +566,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -651,11 +651,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -743,15 +743,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -766,10 +766,7 @@
                 ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -831,11 +828,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -923,15 +920,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -946,10 +943,7 @@
                 ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -1011,11 +1005,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -1103,15 +1097,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -1126,10 +1120,7 @@
                 ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -1191,11 +1182,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
@@ -1283,15 +1274,15 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
+                    "title": "Bundle Expression Alias *",
                     "type": "string"
                   },
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
+                    "title": "File Name Mask (Regular Expression) *",
                     "type": "string"
                   },
                   "documentXPath": {
@@ -1306,10 +1297,7 @@
                 ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -1371,11 +1359,11 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
+                    "title": "Path *",
                     "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
+                    "title": "File Name *",
                     "type": "string"
                   },
                   "unbundleExpression": {
