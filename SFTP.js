@@ -29,4 +29,4 @@ class SFTP extends Channel {
   }
 }
 
-module.exports = SFPT;
+module.exports = SFTP;
