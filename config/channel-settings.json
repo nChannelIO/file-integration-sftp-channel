@@ -27,6 +27,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -87,7 +95,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -106,6 +116,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -186,7 +204,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -205,6 +225,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -265,7 +293,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -284,6 +314,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -364,7 +402,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -383,6 +423,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -443,7 +491,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -462,6 +512,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -542,7 +600,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -561,6 +621,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -621,7 +689,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -640,6 +710,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -720,7 +798,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -739,6 +819,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -799,7 +887,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -818,6 +908,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -898,7 +996,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -917,6 +1017,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -977,7 +1085,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -996,6 +1106,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1076,7 +1194,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1095,6 +1215,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1155,7 +1283,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1174,6 +1304,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1254,7 +1392,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1273,6 +1413,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1333,7 +1481,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1352,6 +1502,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1432,7 +1590,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     }
   ],
