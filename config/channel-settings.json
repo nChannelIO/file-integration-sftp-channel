@@ -27,6 +27,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -35,32 +43,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -69,17 +76,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -89,7 +96,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -108,6 +117,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -116,14 +147,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -137,48 +166,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -197,6 +270,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -205,32 +286,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -239,17 +319,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -259,7 +339,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -278,6 +360,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -286,14 +390,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -307,48 +409,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -367,6 +513,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -375,32 +529,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -409,17 +562,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -429,7 +582,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -448,6 +603,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -456,14 +633,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -477,48 +652,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -537,6 +756,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -545,32 +772,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -579,17 +805,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -599,7 +825,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -618,6 +846,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -626,14 +876,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -647,48 +895,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -707,6 +999,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -715,32 +1015,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -749,17 +1048,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -769,7 +1068,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -788,6 +1089,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -796,14 +1119,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -817,48 +1138,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -877,6 +1242,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -885,32 +1258,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -919,17 +1291,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -939,7 +1311,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -958,6 +1332,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -966,14 +1362,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -987,48 +1381,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -1047,6 +1485,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1055,32 +1501,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -1089,11 +1534,11 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
@@ -1109,7 +1554,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1128,6 +1575,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1136,14 +1605,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -1157,48 +1624,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     },
     {
@@ -1217,6 +1728,14 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1225,32 +1744,31 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias",
-                    "type": "string",
-                    "default": null
+                    "title": "Bundle Expression Alias *",
+                    "type": "string"
                   },
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileNameMask": {
-                    "title": "File Name Mask (Regular Expression)",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name Mask (Regular Expression) *",
+                    "type": "string"
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression)",
-                    "type": "string",
-                    "default": null
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "bundleExpressionAlias",
+                  "path",
+                  "fileNameMask",
+                  "documentXPath"
+                ]
               }
             }
-          },
-          "required": [
-            "fileset"
-          ]
+          }
         },
         "configView": [
           {
@@ -1259,17 +1777,17 @@
             "items": [
               {
                 "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias"
+                "title": "Bundle Expression Alias *"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
                 "placeholder": "\\\\*.FILE_EXTENTION",
-                "title": "File Name Mask (Regular Expression)"
+                "title": "File Name Mask (Regular Expression) *"
               },
               {
                 "key": "fileset[].documentXPath",
@@ -1279,7 +1797,9 @@
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML"
+        }
       }
     },
     {
@@ -1298,6 +1818,28 @@
         "configModel": {
           "type": "object",
           "properties": {
+            "fileType": {
+              "title": "File Type",
+              "type": "string",
+              "enum": [
+                "Delimited",
+                "XML"
+              ]
+            },
+            "putDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1306,14 +1848,12 @@
                 "type": "object",
                 "properties": {
                   "path": {
-                    "title": "Path",
-                    "type": "string",
-                    "default": null
+                    "title": "Path *",
+                    "type": "string"
                   },
                   "fileName": {
-                    "title": "File Name",
-                    "type": "string",
-                    "default": null
+                    "title": "File Name *",
+                    "type": "string"
                   },
                   "unbundleExpression": {
                     "title": "Unbundle Expression (Jsonata Expression)",
@@ -1327,48 +1867,92 @@
                     "title": "XML Footer",
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "path",
+                  "fileName"
+                ]
               }
             }
           },
-          "required": [
+          "required":[
             "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "putDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
           ]
         },
         "configView": [
+          {
+            "key": "putDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.putDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path",
+                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
                 "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name"
+                "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
             ]
           }
         ],
-        "configValues": {}
+        "configValues": {
+          "fileType": "XML",
+          "putDeferred": "No"
+        }
       }
     }
   ],
