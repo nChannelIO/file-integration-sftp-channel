@@ -124,6 +124,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -164,13 +172,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -187,17 +230,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -205,7 +248,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -322,6 +366,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -362,13 +414,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -385,17 +472,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -403,7 +490,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -520,6 +608,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -560,13 +656,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -583,17 +714,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -601,7 +732,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -718,6 +850,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -758,13 +898,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -781,17 +956,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -799,7 +974,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -916,6 +1092,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -956,13 +1140,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -979,17 +1198,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -997,7 +1216,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -1114,6 +1334,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1154,13 +1382,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -1177,17 +1440,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -1195,7 +1458,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -1312,6 +1576,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1352,13 +1624,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -1375,17 +1682,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -1393,7 +1700,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     },
@@ -1510,6 +1818,14 @@
                 "XML"
               ]
             },
+            "deferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1550,13 +1866,48 @@
                 ]
               }
             }
-          }
+          },
+          "required":[
+            "fileset"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "deferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
           {
+            "key": "deferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW"
+            "placeholder": "m h doM M doW",
+            "condition": "model.deferred === 'Yes'"
           },
           {
             "key": "fileset",
@@ -1573,17 +1924,17 @@
                 "title": "File Name *"
               },
               {
-                "key": "unbundleExpression",
+                "key": "fileset[].unbundleExpression",
                 "title": "Unbundle Expression (Jsonata Expression)",
                 "type": "textarea"
               },
               {
-                "key": "xmlHeader",
+                "key": "fileset[].xmlHeader",
                 "title": "XML Header",
                 "type": "textarea"
               },
               {
-                "key": "xmlFooter",
+                "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
               }
@@ -1591,7 +1942,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "deferred": "No"
         }
       }
     }
