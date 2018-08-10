@@ -2,6 +2,7 @@
   "name": "File Integration via SFTP",
   "description": "SFTP Server",
   "channelIcon": "",
+  "channelType": "FILE",
   "definitionFolderName": " ",
   "retailClasses": [
     "eCommerce"
