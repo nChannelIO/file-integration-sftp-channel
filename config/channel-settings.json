@@ -55,7 +55,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -90,7 +90,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -174,7 +174,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -298,7 +298,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -333,7 +333,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -417,7 +417,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -541,7 +541,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -576,7 +576,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -660,7 +660,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -784,7 +784,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -819,7 +819,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -903,7 +903,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -1027,7 +1027,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -1062,7 +1062,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -1146,7 +1146,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -1270,7 +1270,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -1305,7 +1305,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -1389,7 +1389,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -1513,7 +1513,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -1548,7 +1548,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -1632,7 +1632,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
@@ -1756,7 +1756,7 @@
                     "type": "string"
                   },
                   "documentXPath": {
-                    "title": "Where in the XML is the business document? (XPath Expression)",
+                    "title": "Where in the XML is the business document? (XPath Expression) *",
                     "type": "string"
                   }
                 },
@@ -1791,7 +1791,7 @@
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression)",
+                "title": "Where in the XML is the business document? (XPath Expression) *",
                 "placeholder": "/path/to/document/in/xml"
               }
             ]
@@ -1875,7 +1875,7 @@
               }
             }
           },
-          "required":[
+          "required": [
             "fileset"
           ],
           "oneOf": [
