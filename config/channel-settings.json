@@ -36,7 +36,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -113,7 +113,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -331,7 +331,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -408,7 +408,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -626,7 +626,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -703,7 +703,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -921,7 +921,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -998,7 +998,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -1216,7 +1216,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -1293,7 +1293,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -1511,7 +1511,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -1588,7 +1588,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -1806,7 +1806,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -1883,7 +1883,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
@@ -2101,7 +2101,7 @@
               ]
             },
             "getDeferred": {
-              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "title": "Input documents based on a scheduled polling interval?",
               "type": "string",
               "enum": [
                 "Yes",
@@ -2178,7 +2178,7 @@
         "configView": [
           {
             "key": "getDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "title": "Input documents based on a scheduled polling interval?"
           },
           {
             "key": "pollInterval",
