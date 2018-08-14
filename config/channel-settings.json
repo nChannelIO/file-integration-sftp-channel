@@ -35,6 +35,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -67,9 +81,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -97,7 +148,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -177,7 +229,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -278,6 +330,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -310,9 +376,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -340,7 +443,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -420,7 +524,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -521,6 +625,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -553,9 +671,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -583,7 +738,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -663,7 +819,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -764,6 +920,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -796,9 +966,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -826,7 +1033,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -906,7 +1114,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -1007,6 +1215,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1039,9 +1261,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1069,7 +1328,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -1149,7 +1409,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -1250,6 +1510,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1282,9 +1556,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1312,7 +1623,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -1392,7 +1704,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -1493,6 +1805,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1525,9 +1851,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1555,7 +1918,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -1635,7 +1999,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
@@ -1736,6 +2100,20 @@
                 "XML"
               ]
             },
+            "getDeferred": {
+              "title": "Output documents in a batched file, based on a scheduled polling interval?",
+              "type": "string",
+              "enum": [
+                "Yes",
+                "No"
+              ]
+            },
+            "pollInterval": {
+              "type": "string",
+              "title": "Poll Interval (Cron Expression)",
+              "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
+              "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1768,9 +2146,46 @@
                 ]
               }
             }
-          }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "Yes"
+                  ]
+                }
+              },
+              "required": [
+                "pollInterval",
+                "fileset"
+              ]
+            },
+            {
+              "properties": {
+                "getDeferred": {
+                  "enum": [
+                    "No"
+                  ]
+                }
+              },
+              "required": [
+                "fileset"
+              ]
+            }
+          ]
         },
         "configView": [
+          {
+            "key": "getDeferred",
+            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+          },
+          {
+            "key": "pollInterval",
+            "title": "Poll Interval (Cron Expression)",
+            "placeholder": "m h doM M doW",
+            "condition": "model.getDeferred === 'Yes'"
+          },
           {
             "key": "fileset",
             "title": "Fileset",
@@ -1798,7 +2213,8 @@
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "getDeferred": "No"
         }
       }
     },
@@ -1878,7 +2294,7 @@
           "required": [
             "fileset"
           ],
-          "oneOf": [
+          "anyOf": [
             {
               "properties": {
                 "putDeferred": {
