@@ -2565,7 +2565,8 @@
             },
             {
               "key": "privateKey",
-              "title": "Key *"
+              "title": "Key *",
+              "type": "textarea"
             },
             {
               "key": "passphrase",
