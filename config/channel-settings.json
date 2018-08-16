@@ -2517,7 +2517,8 @@
             "required": [
               "host",
               "port",
-              "privateKey"
+              "privateKey",
+              "username"
             ]
           }
         ]
@@ -2558,12 +2559,17 @@
           "title": "Private Key",
           "items": [
             {
+              "key": "username",
+              "title": "Username *"
+            },
+            {
               "key": "privateKey",
               "title": "Key *"
             },
             {
               "key": "passphrase",
-              "title": "Passphrase"
+              "title": "Passphrase",
+              "type": "password"
             }
           ],
           "condition": "model.authMethod == 'Private Key'"
