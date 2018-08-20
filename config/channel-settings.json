@@ -36,14 +36,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -82,45 +74,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -149,8 +109,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -331,14 +290,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -377,45 +328,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -444,8 +363,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -626,14 +544,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -672,45 +582,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -739,8 +617,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -921,14 +798,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -967,45 +836,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -1034,8 +871,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -1216,14 +1052,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1262,45 +1090,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -1329,8 +1125,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -1511,14 +1306,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1557,45 +1344,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -1624,8 +1379,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -1806,14 +1560,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -1852,45 +1598,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -1919,8 +1633,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
@@ -2101,14 +1814,6 @@
                 "XML"
               ]
             },
-            "getDeferred": {
-              "title": "Input documents based on a scheduled polling interval?",
-              "type": "string",
-              "enum": [
-                "Yes",
-                "No"
-              ]
-            },
             "pollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
@@ -2147,45 +1852,13 @@
                 ]
               }
             }
-          },
-          "anyOf": [
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
-                }
-              },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
-            },
-            {
-              "properties": {
-                "getDeferred": {
-                  "enum": [
-                    "No"
-                  ]
-                }
-              },
-              "required": [
-                "fileset"
-              ]
-            }
-          ]
+          }
         },
         "configView": [
           {
-            "key": "getDeferred",
-            "title": "Input documents based on a scheduled polling interval?"
-          },
-          {
             "key": "pollInterval",
             "title": "Poll Interval (Cron Expression)",
-            "placeholder": "m h doM M doW",
-            "condition": "model.getDeferred === 'Yes'"
+            "placeholder": "m h doM M doW"
           },
           {
             "key": "fileset",
@@ -2214,8 +1887,7 @@
           }
         ],
         "configValues": {
-          "fileType": "XML",
-          "getDeferred": "No"
+          "fileType": "XML"
         }
       }
     },
