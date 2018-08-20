@@ -36,7 +36,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -78,7 +78,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -145,7 +145,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -199,7 +199,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -223,7 +223,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -290,7 +290,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -332,7 +332,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -399,7 +399,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -453,7 +453,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -477,7 +477,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -544,7 +544,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -586,7 +586,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -653,7 +653,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -707,7 +707,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -731,7 +731,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -798,7 +798,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -840,7 +840,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -907,7 +907,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -961,7 +961,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -985,7 +985,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -1052,7 +1052,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1094,7 +1094,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -1161,7 +1161,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1215,7 +1215,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -1239,7 +1239,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -1306,7 +1306,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1348,7 +1348,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -1415,7 +1415,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1493,7 +1493,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -1560,7 +1560,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1602,7 +1602,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -1669,7 +1669,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1723,7 +1723,7 @@
                 }
               },
               "required": [
-                "pollInterval",
+                "putPollInterval",
                 "fileset"
               ]
             },
@@ -1747,7 +1747,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
@@ -1814,7 +1814,7 @@
                 "XML"
               ]
             },
-            "pollInterval": {
+            "getPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -1856,7 +1856,7 @@
         },
         "configView": [
           {
-            "key": "pollInterval",
+            "key": "getPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
@@ -1923,7 +1923,7 @@
                 "No"
               ]
             },
-            "pollInterval": {
+            "putPollInterval": {
               "type": "string",
               "title": "Poll Interval (Cron Expression)",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
@@ -2001,7 +2001,7 @@
             "title": "Output documents in a batched file, based on a scheduled polling interval?"
           },
           {
-            "key": "pollInterval",
+            "key": "putPollInterval",
             "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
