@@ -2,7 +2,10 @@
   "name": "File Integration via SFTP",
   "description": "SFTP Server",
   "channelIcon": "",
+<<<<<<< HEAD
   "channelType": "FILE",
+=======
+>>>>>>> 5178efc5f1196d9e79b1b76e8baf147ffff9d5f0
   "definitionFolderName": " ",
   "retailClasses": [
     "eCommerce"
@@ -2237,8 +2240,12 @@
             },
             {
               "key": "privateKey",
+<<<<<<< HEAD
               "title": "Key *",
               "type": "textarea"
+=======
+              "title": "Key *"
+>>>>>>> 5178efc5f1196d9e79b1b76e8baf147ffff9d5f0
             },
             {
               "key": "passphrase",
