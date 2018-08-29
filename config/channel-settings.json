@@ -97,7 +97,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -358,7 +358,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -619,7 +619,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -880,7 +880,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -1141,7 +1141,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -1402,7 +1402,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
@@ -1663,7 +1663,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression)"
               },
               {
@@ -1924,7 +1924,7 @@
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENTION",
+                "placeholder": "\\\\*.FILE_EXTENSION",
                 "title": "File Name Mask (Regular Expression) *"
               },
               {
