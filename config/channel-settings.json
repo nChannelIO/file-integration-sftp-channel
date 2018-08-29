@@ -177,6 +177,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -256,6 +260,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -431,6 +438,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -510,6 +521,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -685,6 +699,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -764,6 +782,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -939,6 +960,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -1018,6 +1043,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -1193,6 +1221,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -1272,6 +1304,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -1447,6 +1482,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -1526,6 +1565,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -1701,6 +1743,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -1780,6 +1826,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
@@ -1955,6 +2004,10 @@
                   "xmlFooter": {
                     "title": "XML Footer",
                     "type": "string"
+                  },
+                  "formatXml": {
+                    "title": "Format XML",
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -2034,6 +2087,9 @@
                 "key": "fileset[].xmlFooter",
                 "title": "XML Footer",
                 "type": "textarea"
+              },
+              {
+                "key": "fileset[].formatXml"
               }
             ]
           }
