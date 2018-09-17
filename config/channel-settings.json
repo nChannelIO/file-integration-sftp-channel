@@ -38,9 +38,13 @@
             },
             "getPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
+            },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
             },
             "fileset": {
               "title": "Fileset",
@@ -50,7 +54,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -63,53 +67,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -147,7 +253,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -167,7 +273,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -181,6 +287,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -191,85 +309,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -303,6 +480,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -311,7 +492,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -324,53 +505,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -428,7 +711,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -442,6 +725,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -452,85 +747,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -564,6 +918,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -572,7 +930,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -585,53 +943,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -669,7 +1129,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -689,7 +1149,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -703,6 +1163,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -713,85 +1185,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -825,6 +1356,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -833,7 +1368,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -846,53 +1381,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -930,7 +1567,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -950,7 +1587,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -964,6 +1601,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -974,85 +1623,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -1086,6 +1794,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1094,7 +1806,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -1107,53 +1819,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -1191,7 +2005,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -1211,7 +2025,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -1225,6 +2039,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -1235,85 +2061,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -1347,6 +2232,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1355,7 +2244,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -1368,53 +2257,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -1452,7 +2443,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -1472,7 +2463,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -1486,6 +2477,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -1496,85 +2499,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -1608,6 +2670,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1616,7 +2682,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -1629,53 +2695,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression)"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -1713,7 +2881,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -1733,7 +2901,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -1747,6 +2915,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -1757,85 +2937,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "putPollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     },
@@ -1869,6 +3108,10 @@
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
+            "bundleExpression": {
+              "type": "string",
+              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+            },
             "fileset": {
               "title": "Fileset",
               "type": "array",
@@ -1877,7 +3120,7 @@
                 "type": "object",
                 "properties": {
                   "bundleExpressionAlias": {
-                    "title": "Bundle Expression Alias *",
+                    "title": "Alias (Used in Bundle Expression) *",
                     "type": "string"
                   },
                   "path": {
@@ -1890,53 +3133,155 @@
                   },
                   "documentXPath": {
                     "title": "Where in the XML is the business document? (XPath Expression) *",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "/.+"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "columnHeaders": {
+                    "title": "Column Headers",
+                    "type": "boolean"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
                   "bundleExpressionAlias",
                   "path",
-                  "fileNameMask",
-                  "documentXPath"
+                  "fileNameMask"
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "fileType",
+            "fileset"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "bundleExpression"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "columnHeaders",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "fileset"
+                ]
+              }
+            }
+          ]
         },
         "configView": [
           {
+            "key": "fileType"
+          },
+          {
             "key": "getPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW"
           },
           {
+            "key": "bundleExpression",
+            "condition": "model.fileset.length > 1"
+          },
+          {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
-                "key": "fileset[].bundleExpressionAlias",
-                "title": "Bundle Expression Alias *"
+                "key": "fileset[].bundleExpressionAlias"
               },
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileNameMask",
-                "placeholder": "\\\\*.FILE_EXTENSION",
-                "title": "File Name Mask (Regular Expression) *"
+                "placeholder": "\\\\*.FILE_EXTENSION"
               },
               {
                 "key": "fileset[].documentXPath",
-                "title": "Where in the XML is the business document? (XPath Expression) *",
-                "placeholder": "/path/to/document/in/xml"
+                "placeholder": "/path/to/document/in/xml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].columnHeaders",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
-          "fileType": "XML"
+          "fileType": "XML",
+          "fileset": []
         }
       }
     },
@@ -1974,7 +3319,7 @@
             },
             "putPollInterval": {
               "type": "string",
-              "title": "Poll Interval (Cron Expression)",
+              "title": "Poll Interval (Cron Expression) *",
               "validationMessage": "Must be a valid 5 point Cron string (m h doM M doW)",
               "pattern": "^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s))$"
             },
@@ -1994,7 +3339,7 @@
                     "type": "string"
                   },
                   "unbundleExpression": {
-                    "title": "Unbundle Expression (Jsonata Expression)",
+                    "title": "Unbundle Expression (Jsonata Expression) *",
                     "type": "string"
                   },
                   "xmlHeader": {
@@ -2008,6 +3353,18 @@
                   "formatXml": {
                     "title": "Format XML",
                     "type": "boolean"
+                  },
+                  "fieldDelimiter": {
+                    "title": "Field Delimiter *",
+                    "type": "string"
+                  },
+                  "quoteCharacter": {
+                    "title": "Quote Character",
+                    "type": "string",
+                    "enum": [
+                      "\"",
+                      "'"
+                    ]
                   }
                 },
                 "required": [
@@ -2018,85 +3375,144 @@
             }
           },
           "required": [
+            "putDeferred",
             "fileset"
           ],
-          "anyOf": [
+          "allOf": [
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "Yes"
-                  ]
+              "if": {
+                "properties": {
+                  "putDeferred": {
+                    "const": "Yes"
+                  }
                 }
               },
-              "required": [
-                "pollInterval",
-                "fileset"
-              ]
+              "then": {
+                "required": [
+                  "putPollInterval"
+                ]
+              }
             },
             {
-              "properties": {
-                "putDeferred": {
-                  "enum": [
-                    "No"
-                  ]
+              "if": {
+                "properties": {
+                  "fileset": {
+                    "minItems": 2
+                  }
                 }
               },
-              "required": [
-                "fileset"
-              ]
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "unbundleExpression"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fileType": {
+                    "const": "Delimited"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "fieldDelimiter",
+                        "quoteCharacter"
+                      ]
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "fileset": {
+                    "items": {
+                      "required": [
+                        "documentXPath"
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         "configView": [
+          "fileType",
           {
-            "key": "putDeferred",
-            "title": "Output documents in a batched file, based on a scheduled polling interval?"
+            "key": "putDeferred"
           },
           {
             "key": "putPollInterval",
-            "title": "Poll Interval (Cron Expression)",
             "placeholder": "m h doM M doW",
             "condition": "model.putDeferred === 'Yes'"
           },
           {
             "key": "fileset",
-            "title": "Fileset",
             "items": [
               {
                 "key": "fileset[].path",
-                "title": "Path *",
                 "placeholder": "/some/path/to/folder"
               },
               {
                 "key": "fileset[].fileName",
-                "placeholder": "FILENAME.{{timestamp}}.xml",
-                "title": "File Name *"
+                "placeholder": "FILENAME.{{timestamp}}.xml"
               },
               {
                 "key": "fileset[].unbundleExpression",
-                "title": "Unbundle Expression (Jsonata Expression)",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileset.length > 1"
               },
               {
                 "key": "fileset[].xmlHeader",
-                "title": "XML Header",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
                 "key": "fileset[].xmlFooter",
-                "title": "XML Footer",
-                "type": "textarea"
+                "type": "textarea",
+                "condition": "model.fileType === 'XML'"
               },
               {
-                "key": "fileset[].formatXml"
+                "key": "fileset[].formatXml",
+                "condition": "model.fileType === 'XML'"
+              },
+              {
+                "key": "fileset[].fieldDelimiter",
+                "condition": "model.fileType === 'Delimited'"
+              },
+              {
+                "key": "fileset[].quoteCharacter",
+                "condition": "model.fileType === 'Delimited'",
+                "type": "radios",
+                "titleMap": [
+                  {
+                    "value": "\"",
+                    "name": "Double Quote \""
+                  },
+                  {
+                    "value": "'",
+                    "name": "Single Quote '"
+                  }
+                ]
               }
             ]
           }
         ],
         "configValues": {
           "fileType": "XML",
-          "putDeferred": "No"
+          "putDeferred": "No",
+          "fileset": []
         }
       }
     }
