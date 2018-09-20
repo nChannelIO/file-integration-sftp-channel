@@ -44,7 +44,8 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)",
+              "pattern": "db\\..+\\.aggregate\\(\\[.*\\]\\);?"
             },
             "fileset": {
               "title": "Fileset",
@@ -71,7 +72,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -166,7 +167,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -482,7 +483,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -509,7 +510,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -604,7 +605,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -920,7 +921,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -947,7 +948,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -1042,7 +1043,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -1358,7 +1359,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -1385,7 +1386,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -1480,7 +1481,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -1796,7 +1797,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -1823,7 +1824,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -1918,7 +1919,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -2234,7 +2235,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -2261,7 +2262,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -2356,7 +2357,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -2672,7 +2673,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -2699,7 +2700,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -2794,7 +2795,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
@@ -3110,7 +3111,7 @@
             },
             "bundleExpression": {
               "type": "string",
-              "title": "Bundle Expression (Mongodb Pipeline Expression) *"
+              "title": "Bundle Expression (Mongodb Pipeline Expression)"
             },
             "fileset": {
               "title": "Fileset",
@@ -3137,7 +3138,7 @@
                     "pattern": "/.+"
                   },
                   "fieldDelimiter": {
-                    "title": "Field Delimiter",
+                    "title": "Field Delimiter *",
                     "type": "string",
                     "minLength": 1
                   },
@@ -3232,7 +3233,7 @@
           },
           {
             "key": "bundleExpression",
-            "condition": "model.fileset.length > 1"
+            "type": "textarea"
           },
           {
             "key": "fileset",
