@@ -371,17 +371,6 @@
                     }
                   }
                 }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
-                      ]
-                    }
-                  }
-                }
               }
             }
           ]
@@ -809,17 +798,6 @@
                       "required": [
                         "fieldDelimiter",
                         "quoteCharacter"
-                      ]
-                    }
-                  }
-                }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
                       ]
                     }
                   }
@@ -1255,17 +1233,6 @@
                     }
                   }
                 }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
-                      ]
-                    }
-                  }
-                }
               }
             }
           ]
@@ -1693,17 +1660,6 @@
                       "required": [
                         "fieldDelimiter",
                         "quoteCharacter"
-                      ]
-                    }
-                  }
-                }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
                       ]
                     }
                   }
@@ -2139,17 +2095,6 @@
                     }
                   }
                 }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
-                      ]
-                    }
-                  }
-                }
               }
             }
           ]
@@ -2577,17 +2522,6 @@
                       "required": [
                         "fieldDelimiter",
                         "quoteCharacter"
-                      ]
-                    }
-                  }
-                }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
                       ]
                     }
                   }
@@ -3023,17 +2957,6 @@
                     }
                   }
                 }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
-                      ]
-                    }
-                  }
-                }
               }
             }
           ]
@@ -3461,17 +3384,6 @@
                       "required": [
                         "fieldDelimiter",
                         "quoteCharacter"
-                      ]
-                    }
-                  }
-                }
-              },
-              "else": {
-                "properties": {
-                  "fileset": {
-                    "items": {
-                      "required": [
-                        "documentXPath"
                       ]
                     }
                   }
